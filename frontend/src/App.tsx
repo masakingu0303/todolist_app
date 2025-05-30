@@ -1,12 +1,6 @@
-const App = () => {
-  return (
-    <>
 
-      <button className="btn btn-primary text-center">Primary Button</button>
-    
-  
-    </>
-  )
-}
+const App = () => {
+ 
+};
 
 export default App;

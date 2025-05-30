@@ -14,3 +14,18 @@ Googleログイン/ログアウト
 Firebase Authentication（Googleログイン）
 Tailwind DaisyUI Heroicons
 バックエンド Express(Nodo.js) + MySQL
+
+
+src/
+├── components/
+│   ├── GoogleLoginButton.tsx
+│   ├── TaskList.tsx
+│   ├── TaskItem.tsx
+│   ├── TaskForm.tsx
+│   ├── TaskEditModal.tsx
+│   └── Pagination.tsx
+├── pages/
+│   ├── LoginPage.tsx
+│   └── TaskPage.tsx
+├── App.tsx
+└── index.tsx
