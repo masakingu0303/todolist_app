@@ -18,14 +18,14 @@ Tailwind DaisyUI Heroicons
 
 src/
 ├── components/
-│   ├── GoogleLoginButton.tsx
-│   ├── TaskList.tsx
-│   ├── TaskItem.tsx
-│   ├── TaskForm.tsx
-│   ├── TaskEditModal.tsx
-│   └── Pagination.tsx
+│   ├── TaskHeader.tsx        // ヘッダー（ログアウトやタイトル表示）
+│   ├── TaskForm.tsx          // タスク追加フォーム
+│   ├── TaskList.tsx          // タスク一覧
+│   ├── TaskEditModal.tsx     // 編集モーダル
+│   └── Pagination.tsx        // ページネーション
 ├── pages/
-│   ├── LoginPage.tsx
-│   └── TaskPage.tsx
-├── App.tsx
-└── index.tsx
+│   ├── LoginPage.tsx         // ログインページ
+│   └── TaskPage.tsx          // タスク管理ページ
+├── App.tsx                   // ページ切り替え（ログイン判定）
+└── index.tsx                 // Reactエントリーポイント
+
