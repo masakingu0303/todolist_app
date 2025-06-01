@@ -1,18 +1,37 @@
-type Todo = {
-    id: number;
-    text: string | null;
-    date: string
+import { useEffect } from "react";
+
+const API = 'http://localhost:3000/todos';
+
+type TaskListProps = {
+    setTodos: any;
+    todos: any;
+    user: any;
 };
 
+type Todos = {
+    id?: number;
+    text: string | null;
+    date: string;
+    check: boolean;
+    uid: string;  // ユーザーIDを追加
+  }
 
-const TaskList = () => {
-    let todos: Todo[] = [
-        { id: 1, text: "勉強", date: "2015.03.03" }, { id: 2, text: "勉強", date: "2015.03.03" }
-    ];
 
-    //todos = []; 
+const TaskList = ({setTodos, todos, user}: TaskListProps) => {
+  
 
-    //className="text-center text-gray-500">タスクがありません。
+    useEffect(() => {
+        if (user) {
+          fetch(`${API}?uid=${user.uid}`)
+            .then(res => res.json())
+            .then(data => {
+              const updatedDate = data.map((todo:Todos) => ({
+                ...todo, check: todo.check ?? false
+              }));
+              setTodos(updatedDate)
+            });
+        }
+      }, [user]);
 
     return (
         <div className="mt-4">
@@ -50,7 +69,7 @@ const TaskList = () => {
                         <button className="btn btn-soft">日付順</button>
                     </div>
                     <ul className="mt-4">
-                        {todos.map((todo) => (
+                        {todos.map((todo: Todos) => (
                             <li key={todo.id}>
                                 <div className="card shadow">
                                     <div className="card-body">
