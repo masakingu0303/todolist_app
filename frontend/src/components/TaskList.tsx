@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const API = 'http://localhost:3000/todos';
 
@@ -20,7 +20,9 @@ type Todos = {
 
 
 const TaskList = ({ setTodos, todos, user, setIsOpen, setSelectTodo }: TaskListProps) => {
-    //const today = new Date();
+
+    const [sort, setSort] = useState<'added' | 'dateAsc' | 'complete'>('added');
+
 
     //ログインしたら(userの値が変化したら)todosを表示
     useEffect(() => {
@@ -61,6 +63,14 @@ const TaskList = ({ setTodos, todos, user, setIsOpen, setSelectTodo }: TaskListP
         });
     };
 
+    // ソート処理（データ（todos配列）の順番を並べ替える）
+    const sortTodos = [...todos];
+    if (sort === 'dateAsc') {
+        sortTodos.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    } else if (sort === 'complete') {
+        sortTodos.sort((a, b) => Number(a.check) - Number(b.check));
+    }
+
     return (
         <div className="mt-4">
             {!todos || todos.length === 0 ? (
@@ -93,11 +103,12 @@ const TaskList = ({ setTodos, todos, user, setIsOpen, setSelectTodo }: TaskListP
                 //todosがあるのきの表示
                 <div>
                     <div className="bg-white p-6 text-center">
-                        <button className="btn btn-soft">追加順</button>
-                        <button className="btn btn-soft">日付順</button>
+                        <button className="btn btn-soft" onClick={() => setSort('added')}>追加順</button>
+                        <button className="btn btn-soft" onClick={() => setSort('dateAsc')}>日付順</button>
+                        <button className="btn btn-soft" onClick={() => setSort('complete')}>未完了</button>
                     </div>
                     <ul className="mt-4 space-y-4">
-                        {todos.map((todo: Todos) => {
+                        {sortTodos.map((todo: Todos) => {
 
                             let dateNum = Math.ceil(
                                 (new Date(todo.date).getTime() - new Date().getTime()) /
@@ -111,7 +122,7 @@ const TaskList = ({ setTodos, todos, user, setIsOpen, setSelectTodo }: TaskListP
                             } else if (dateNum < 0) {
                                 dateText = '期限切れ';
                             } else {
-                                dateText = `残り${dateNum}日`;  // ← ← ← ← ここがテンプレートリテラル
+                                dateText = `残り${dateNum}日`;
                             }
 
 
@@ -151,7 +162,7 @@ const TaskList = ({ setTodos, todos, user, setIsOpen, setSelectTodo }: TaskListP
                                                 <span>
                                                     期限: {new Date(todo.date).getMonth() + 1}/{new Date(todo.date).getDate()}
                                                 </span>
-                                                <span className="badge badge-secondary badge-sm">
+                                                <span className={`badge badge-sm ${todo.check ? 'bg-green-500 text-white line-through' : 'bg-gray-200 text-gray-700'}`}>
                                                     {dateText}
                                                 </span>
                                             </div>
