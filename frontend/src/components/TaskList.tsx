@@ -80,7 +80,7 @@ const TaskList = ({ setTodos, todos, user, setIsOpen, setSelectTodo }: TaskListP
                     <div className="card shadow mt-4">
                         <div className="card-body">
                             <div className="card-actions justify-between">
-                                <input type="checkbox" />
+                                <input type="checkbox" disabled/>
                                 <h2 className="text-gray-500">ここにタスクが表示されます</h2>
                                 <div>
                                     <button className="btn btn-square btn-sm">
@@ -96,17 +96,36 @@ const TaskList = ({ setTodos, todos, user, setIsOpen, setSelectTodo }: TaskListP
 
                                 </div>
                             </div>
-                            <p>残り◯日</p>
+                            <p className="text-gray-500">期限:</p>
                         </div>
                     </div>
                 </div>) : (
                 //todosがあるのきの表示
                 <div>
-                    <div className="bg-white p-6 text-center">
-                        <button className="btn btn-soft" onClick={() => setSort('added')}>追加順</button>
-                        <button className="btn btn-soft" onClick={() => setSort('dateAsc')}>日付順</button>
-                        <button className="btn btn-soft" onClick={() => setSort('complete')}>未完了</button>
+                    <div className="flex flex-wrap gap-2 justify-center mt-4">
+                        <button
+                            className={`px-4 py-1.5 rounded-full text-sm transition
+      ${sort === 'added' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+                            onClick={() => setSort('added')}
+                        >
+                            追加順
+                        </button>
+                        <button
+                            className={`px-4 py-1.5 rounded-full text-sm transition
+      ${sort === 'dateAsc' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+                            onClick={() => setSort('dateAsc')}
+                        >
+                            納期順
+                        </button>
+                        <button
+                            className={`px-4 py-1.5 rounded-full text-sm transition
+      ${sort === 'complete' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+                            onClick={() => setSort('complete')}
+                        >
+                            未完了順
+                        </button>
                     </div>
+
                     <ul className="mt-4 space-y-4">
                         {sortTodos.map((todo: Todos) => {
 
