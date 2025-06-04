@@ -15,7 +15,7 @@ const TaskHeader = ({ user }: { user: any }) => {
 
   return (
 <div className="flex items-center justify-between p-4">
-  {/* 👤 ユーザー画像と名前 */}
+  
   <div className="flex items-center gap-3">
     {user?.photoURL && (
       <img
@@ -29,7 +29,6 @@ const TaskHeader = ({ user }: { user: any }) => {
     </h2>
   </div>
 
-  {/* 🔘 ログアウトボタン */}
   <button
     onClick={handleLogout}
     className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md transition duration-200"

@@ -44,10 +44,10 @@ const TaskForm = ({ user, setTodos, todos }: TaskFormProps) => {
         <div className="text-center mt-4">
             <div className="join">
                 <div>
-                    <input type="text" className="input join-item w-60" placeholder="タスクを入力してください" value={text} onChange={(e) => setText(e.target.value)} />
+                    <input type="text" className="input join-item w-50" placeholder="タスクを入力" value={text} onChange={(e) => setText(e.target.value)} />
                 </div>
                 <div>
-                    <input type="date" className="input join-item w-40" value={date} onChange={e => setDate(e.target.value)} />
+                    <input type="date" className="input join-item w-30" value={date} onChange={e => setDate(e.target.value)} />
                 </div>
                 <div className="indicator">
                     <button className="btn join-item" onClick={handleClick}>追加</button>

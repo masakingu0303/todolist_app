@@ -5,10 +5,10 @@ import TaskEditModal from '../components/TaskEditModal';
 import Pagination from '../components/Pagination';
 import { useState } from 'react';
 
-const API = 'http://localhost:3000/todos';
+
 
 type TaskPageProps = {
-  user: any; 
+  user: any;
 };
 
 type Todos = {
@@ -21,17 +21,17 @@ type Todos = {
 
 const TaskPage = ({ user }: TaskPageProps) => {
 
-   const [todos, setTodos] = useState<Todos[]>([]);
-   const [isOpen, setIsOpen] = useState(false);
+  const [todos, setTodos] = useState<Todos[]>([]);
+  const [isOpen, setIsOpen] = useState(false);
   const [selectTodo, setSelectTodo] = useState<Todos | null>(null);
 
 
   return (
     <div>
-      <TaskHeader user={user}/>
-      <TaskForm setTodos={setTodos} todos={todos} user={user}/>
-      <TaskList setTodos={setTodos} todos={todos} user={user} setIsOpen={setIsOpen} setSelectTodo={setSelectTodo}/>
-      <TaskEditModal todos={todos} setTodos={setTodos} isOpen={isOpen} setIsOpen={setIsOpen}  selectTodo={selectTodo}/>
+      <TaskHeader user={user} />
+      <TaskForm setTodos={setTodos} todos={todos} user={user} />
+      <TaskList setTodos={setTodos} todos={todos} user={user} setIsOpen={setIsOpen} setSelectTodo={setSelectTodo} />
+      <TaskEditModal todos={todos} setTodos={setTodos} isOpen={isOpen} setIsOpen={setIsOpen} selectTodo={selectTodo} />
       <Pagination />
     </div>
   );
