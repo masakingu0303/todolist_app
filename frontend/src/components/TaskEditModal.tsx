@@ -1,10 +1,60 @@
+import { useEffect, useState } from "react";
 
-type TaskEditModalProps = {
-    isOpen: any;
-    setIsOpen: any;
+const API = 'http://localhost:3000/todos';
+
+type Todos = {
+    id?: number;
+    text: string | null;
+    date: string;
+    check: boolean;
+    uid: string;
 }
 
-const TaskEditModal = ({ isOpen, setIsOpen }: TaskEditModalProps) => {
+type TaskEditModalProps = {
+    todos: Todos[];
+    setTodos: React.Dispatch<React.SetStateAction<Todos[]>>;
+    isOpen: any;
+    setIsOpen: any;
+    selectTodo: Todos | null;
+}
+
+const TaskEditModal = ({ todos, setTodos, isOpen, setIsOpen, selectTodo }: TaskEditModalProps) => {
+
+    const [text, setText] = useState('');
+    const [date, setDate] = useState('');
+
+    //selectTodoが更新されたらアクション == モーダルボタン押したらそのtodoをsetSelectTodoに入れる
+    useEffect(() => {
+        if (selectTodo) {
+            setText(selectTodo.text || "");
+            setDate(selectTodo.date || "");
+        }
+    }, [selectTodo]);
+
+    //更新値を追加
+    const handleClick = () => {
+        if (selectTodo) {
+            //タスクと日付のみ更新した{}を定義
+            const updatedTodo = {...selectTodo, text, date};
+
+            //id一致したものを丸ごと更新,updatedTodoを入れる
+            fetch(`${API}/${selectTodo.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updatedTodo)
+           })
+           .then(res => res.json())
+           .then(data => {
+            const updateTodos = todos.map(todo => 
+                todo.uid === selectTodo.uid? data :todo
+            );
+            setTodos(updateTodos);
+            setIsOpen(false);
+           })
+        }
+    }
 
 
 
@@ -27,12 +77,16 @@ const TaskEditModal = ({ isOpen, setIsOpen }: TaskEditModalProps) => {
                                 type="text"
                                 className="input input-bordered w-full"
                                 placeholder="タスクを入力してください"
+                                value={text}
+                                onChange={(e) => setText(e.target.value)}
                             />
                             <input
                                 type="date"
                                 className="input input-bordered w-full"
+                                value={date}
+                                onChange={(e) => setDate(e.target.value)}
                             />
-                            <button className="btn  w-full">追加</button>
+                            <button className="btn  w-full" onClick={() => handleClick()}>追加</button>
                         </div>
                     </div>
                 </div>
