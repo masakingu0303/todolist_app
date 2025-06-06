@@ -31,7 +31,7 @@ const TaskEditModal = ({ todos, setTodos, isOpen, setIsOpen, selectTodo }: TaskE
         }
     }, [selectTodo]);
 
-    //更新値を追加
+    //モーダルでタスクを編集
     const handleClick = () => {
         if (selectTodo) {
             //タスクと日付のみ更新した{}を定義

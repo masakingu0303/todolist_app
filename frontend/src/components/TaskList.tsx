@@ -27,8 +27,6 @@ const TaskList = ({ setTodos, todos, user, setIsOpen, setSelectTodo }: TaskListP
 
 
     //ログインしたら(user値が変化したら)todosを表示
-
-
     useEffect(() => {
         if (!user || !user.uid) return;
         fetch(`${API}?uid=${user.uid}`)

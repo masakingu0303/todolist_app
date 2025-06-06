@@ -14,6 +14,8 @@ const TaskForm = ({ user, setTodos, todos }: TaskFormProps) => {
     const [text, setText] = useState('');
     const [date, setDate] = useState('');
 
+
+    //タスクを追加
     const handleClick = (e: React.FormEvent) => {
         e.preventDefault();
          //未ログインの場合、アラート表示して処理中断。
