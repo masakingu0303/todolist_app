@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import Pagination from "./Pagination";
 const API = 'http://localhost:3000/todos';
 
 type TaskListProps = {
@@ -22,6 +22,7 @@ type Todos = {
 const TaskList = ({ setTodos, todos, user, setIsOpen, setSelectTodo }: TaskListProps) => {
 
     const [sort, setSort] = useState<'added' | 'dateAsc' | 'complete'>('added');
+
 
 
     //ログインしたら(userの値が変化したら)todosを表示
@@ -71,6 +72,13 @@ const TaskList = ({ setTodos, todos, user, setIsOpen, setSelectTodo }: TaskListP
         sortTodos.sort((a, b) => Number(a.check) - Number(b.check));
     }
 
+    //pagenation定義
+    const [currentPage, setCurrentPage] = useState(1); //現在のページ
+    const tasksPerPage = 10; //1画面のタスク数
+    const indexOfLastTask = currentPage * tasksPerPage; //現在のページで表示する最後のタスクのインデックス
+    const indexOfFirstTask = indexOfLastTask - tasksPerPage; //現在のページで表示する最初のタスクのインデックス
+    const currentTodos = sortTodos.slice(indexOfFirstTask, indexOfLastTask); //表示するtodo
+
     return (
         <div className="mt-4">
             {!todos || todos.length === 0 ? (
@@ -80,7 +88,7 @@ const TaskList = ({ setTodos, todos, user, setIsOpen, setSelectTodo }: TaskListP
                     <div className="card shadow mt-4">
                         <div className="card-body">
                             <div className="card-actions justify-between">
-                                <input type="checkbox" disabled/>
+                                <input type="checkbox" disabled />
                                 <h2 className="text-gray-500">ここにタスクが表示されます</h2>
                                 <div>
                                     <button className="btn btn-square btn-sm">
@@ -127,7 +135,7 @@ const TaskList = ({ setTodos, todos, user, setIsOpen, setSelectTodo }: TaskListP
                     </div>
 
                     <ul className="mt-4 space-y-4">
-                        {sortTodos.map((todo: Todos) => {
+                        {currentTodos.map((todo: Todos) => {
 
                             let dateNum = Math.ceil(
                                 (new Date(todo.date).getTime() - new Date().getTime()) /
@@ -192,6 +200,10 @@ const TaskList = ({ setTodos, todos, user, setIsOpen, setSelectTodo }: TaskListP
                         })}
 
                     </ul>
+
+                    {todos.length >= 10 && (
+                        <Pagination totalTasks={todos.length} tasksPerPage={tasksPerPage} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+                    )}
 
                 </div>
             )}

@@ -2,7 +2,6 @@ import TaskHeader from '../components/Task Header';
 import TaskForm from '../components/TaskForm';
 import TaskList from '../components/TaskList';
 import TaskEditModal from '../components/TaskEditModal';
-import Pagination from '../components/Pagination';
 import { useState } from 'react';
 
 
@@ -32,7 +31,6 @@ const TaskPage = ({ user }: TaskPageProps) => {
       <TaskForm setTodos={setTodos} todos={todos} user={user} />
       <TaskList setTodos={setTodos} todos={todos} user={user} setIsOpen={setIsOpen} setSelectTodo={setSelectTodo} />
       <TaskEditModal todos={todos} setTodos={setTodos} isOpen={isOpen} setIsOpen={setIsOpen} selectTodo={selectTodo} />
-      <Pagination />
     </div>
   );
 };
