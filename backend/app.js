@@ -9,10 +9,14 @@ app.use(express.json());
 let todos = [];
 let idCounter = 1;
 
-app.get('/todos', (req, res) => {
+// すべてのユーザーのtodosを取得（確認用）
+app.get('/', (req, res) => {
+    res.json(todos);
+  });
+
+
+app.get('/', (req, res) => {
     const uid  = String(req.query.uid);
-    //ユーザーのtodos確認ページ
-    console.log(`http://localhost:3000/todos?uid=${uid}`);
   if (!uid) {
     return res.status(400).json({ error: 'uid is required' });
   }
@@ -21,7 +25,7 @@ app.get('/todos', (req, res) => {
 });
 
 //タスクを追加
-app.post('/todos', (req, res) => {
+app.post('/', (req, res) => {
   const { text, date, check = false, uid } = req.body;
   if (!text || !date || !uid) {
     return res.status(400).json({ error: 'text, date, and uid are required' });
@@ -39,7 +43,7 @@ app.post('/todos', (req, res) => {
 });
 
 //モーダルでタスクを編集
-app.put('/todos/:id', (req, res) => {
+app.put('/:id', (req, res) => {
   const { id } = req.params;
   const updatedTodo = req.body;
 
@@ -53,7 +57,7 @@ app.put('/todos/:id', (req, res) => {
 });
 
 // checkの状態変更
-app.patch('/todos/:id', (req, res) => {
+app.patch('/:id', (req, res) => {
   const { id } = req.params;
   const { check } = req.body;
 
@@ -67,12 +71,11 @@ app.patch('/todos/:id', (req, res) => {
 });
 
 //選択したタスク以外を表示
-app.delete('/todos/:id', (req, res) => {
+app.delete('/:id', (req, res) => {
   const { id } = req.params;
   todos = todos.filter(todo => todo.id !== Number(id));
   res.status(204).send();
 });
-
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);

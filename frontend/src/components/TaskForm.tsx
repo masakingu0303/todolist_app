@@ -6,7 +6,7 @@ type TaskFormProps = {
 }
 
 
-const API = 'http://localhost:3000/todos';
+const API = 'http://localhost:3000';
 
 
 const TaskForm = ({ user, setTodos, todos }: TaskFormProps) => {
