@@ -48,10 +48,11 @@ const TaskEditModal = ({ todos, setTodos, isOpen, setIsOpen, selectTodo }: TaskE
            .then(res => res.json())
            .then(data => {
             const updateTodos = todos.map(todo => 
-                todo.id === selectTodo.id? data :todo
+                todo.id === selectTodo.id? data :todo         
             );
             setTodos(updateTodos);
             setIsOpen(false);
+            
            })
         }
     }

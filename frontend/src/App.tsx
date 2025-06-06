@@ -5,13 +5,16 @@ import TaskPage from './pages/TaskPage';
 
 const App = () => {
   const [user] = useAuthState(auth);
+
+
  
 
   return (
     <>
-      {!user ? <LoginPage/> : <TaskPage user={user}/>}
+      {!user || !user.uid ? <LoginPage /> : <TaskPage user={user} />}
     </>
   );
+  
 };
 
 export default App;

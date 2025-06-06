@@ -19,25 +19,52 @@ type Todos = {
 }
 
 
+
 const TaskList = ({ setTodos, todos, user, setIsOpen, setSelectTodo }: TaskListProps) => {
 
     const [sort, setSort] = useState<'added' | 'dateAsc' | 'complete'>('added');
 
 
 
-    //ログインしたら(userの値が変化したら)todosを表示
+    //ログインしたら(user値が変化したら)todosを表示
+
+
     useEffect(() => {
-        if (user) {
-            fetch(`${API}?uid=${user.uid}`)
-                .then(res => res.json())
-                .then(data => {
-                    const updatedDate = data.map((todo: Todos) => ({
-                        ...todo, check: todo.check ?? false
-                    }));
-                    setTodos(updatedDate)
-                });
-        }
+        if (!user || !user.uid) return;
+        fetch(`${API}?uid=${user.uid}`)
+            .then(res => res.json())
+            .then(data => {
+                const updatedDate = data.map((todo: Todos) => ({
+                    ...todo, check: todo.check ?? false
+                }));
+                setTodos(updatedDate);
+            });
     }, [user]);
+
+
+    //デバックコード
+    // useEffect(() => {
+    //     if (user?.uid) {
+    //       fetch(`http://localhost:3000/todos?uid=${user.uid}`)
+    //         .then(async res => {
+    //           const text = await res.text();
+    //           console.log("サーバーレスポンス:", text);
+
+    //           try {
+    //             const json = JSON.parse(text);
+    //             setTodos(json);
+    //           } catch (err) {
+    //             console.error("JSONパースエラー:", err);
+    //           }
+    //         })
+    //         .catch(err => {
+    //           console.error("fetchエラー:", err);
+    //         });
+    //     }
+    //   }, [user]);
+
+
+
 
     //削除イベント
     const handleDelete = (id?: number) => {
@@ -198,7 +225,6 @@ const TaskList = ({ setTodos, todos, user, setIsOpen, setSelectTodo }: TaskListP
                                 </li>
                             );
                         })}
-
                     </ul>
 
                     {todos.length >= 10 && (
