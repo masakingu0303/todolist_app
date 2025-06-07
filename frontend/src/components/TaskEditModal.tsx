@@ -27,7 +27,7 @@ const TaskEditModal = ({ todos, setTodos, isOpen, setIsOpen, selectTodo }: TaskE
     useEffect(() => {
         if (selectTodo) {
             setText(selectTodo.text || "");
-            setDate(selectTodo.date || "");
+            setDate(selectTodo.date?.substring(0, 10) || "");
         }
     }, [selectTodo]);
 
@@ -87,7 +87,7 @@ const TaskEditModal = ({ todos, setTodos, isOpen, setIsOpen, selectTodo }: TaskE
                                 value={date}
                                 onChange={(e) => setDate(e.target.value)}
                             />
-                            <button className="btn  w-full" onClick={() => handleClick()}>追加</button>
+                            <button className="btn  w-full" onClick={() => handleClick()}>保存</button>
                         </div>
                     </div>
                 </div>

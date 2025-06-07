@@ -136,8 +136,8 @@ app.patch('/:id', (req, res) => {
     const { id } = req.params;
     const { check } = req.body;
 
-    const checkQuery = 'UPDATE todos SET check = ? WHERE id = ?';
-    const params = [`check`, id];
+    const checkQuery = 'UPDATE todos SET `check` = ? WHERE id = ?';
+    const params = [true, 2];
 
     connection.query(checkQuery, params, (error, result) => {
         if (error) throw error;

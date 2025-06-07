@@ -155,7 +155,7 @@ const TaskList = ({ setTodos, todos, user, setIsOpen, setSelectTodo }: TaskListP
       ${sort === 'complete' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
                             onClick={() => setSort('complete')}
                         >
-                            未完了順
+                            未完了
                         </button>
                     </div>
 
