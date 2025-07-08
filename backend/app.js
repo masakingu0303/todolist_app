@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 const connection = mysql.createConnection({
-    host: '127.0.0.1',
+    host: 'localhost',
     user: 'root',
     password: process.env.MYSQL_PASSWORD,
     database: 'todo_app'
@@ -52,14 +52,6 @@ app.get('/', (req, res) => {
         res.json(result);
     });
 });
-// app.get('/', (req, res) => {
-//     const uid  = String(req.query.uid);
-//   if (!uid) {
-//     return res.status(400).json({ error: 'uid is required' });
-//   }
-//   const userTodos = todos.filter(todo => String(todo.uid) === uid);
-//   res.json(userTodos);
-// });
 
 
 //タスクを追加
@@ -80,22 +72,7 @@ app.post('/', (req, res) => {
     });
 });
 
-// app.post('/', (req, res) => {
-//   const { text, date, check = false, uid } = req.body;
-//   if (!text || !date || !uid) {
-//     return res.status(400).json({ error: 'text, date, and uid are required' });
-//   }
 
-//   const newTodo = {
-//     id: idCounter++,
-//     text,
-//     date,
-//     check,
-//     uid,
-//   };
-//   todos.push(newTodo);
-//   res.status(201).json(newTodo);
-// });
 
 
 
@@ -118,18 +95,6 @@ app.put('/:id', (req, res) => {
     })
 
 })
-// app.put('/:id', (req, res) => {
-//   const { id } = req.params;
-//   const updatedTodo = req.body;
-
-//   const index = todos.findIndex(todo => todo.id === Number(id));
-//   if (index === -1) {
-//     return res.status(404).json({ error: 'Todo not found' });
-//   }
-
-//   todos[index] = { ...todos[index], ...updatedTodo };
-//   res.json(todos[index]);
-// });
 
 // checkの状態変更
 app.patch('/:id', (req, res) => {
@@ -149,18 +114,7 @@ app.patch('/:id', (req, res) => {
 
     })
 })
-// app.patch('/:id', (req, res) => {
-//     const { id } = req.params;
-//     const { check } = req.body;
 
-//     const index = todos.findIndex(todo => todo.id === Number(id));
-//     if (index === -1) {
-//         return res.status(404).json({ error: 'Todo not found' });
-//     }
-
-//     todos[index].check = check;
-//     res.json(todos[index]);
-// });
 
 //選択したタスク以外を表示
 app.delete('/:id', (req, res) => {
@@ -175,11 +129,7 @@ app.delete('/:id', (req, res) => {
         res.status(200).json({id: Number(id)});    
     })
 })
-// app.delete('/:id', (req, res) => {
-//     const { id } = req.params;
-//     todos = todos.filter(todo => todo.id !== Number(id));
-//     res.status(204).send();
-// });
+
 
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);

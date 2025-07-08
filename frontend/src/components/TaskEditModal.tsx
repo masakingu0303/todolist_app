@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 
+//const API = 'http://18.183.241.4:3000';
 const API = 'http://localhost:3000';
+
 
 type Todos = {
     id?: number;
