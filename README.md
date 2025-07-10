@@ -18,6 +18,7 @@
 * フロントエンド React (TypeScript) + Vite
 * スタイリング Tailwind CSS + DaisyUI
 * バックエンド Node.js + Express
+* データベース　MySQL
 * API連携 Firebase(Googleアカウントでログイン管理)
 * 環境変数管理 dotenv
 
